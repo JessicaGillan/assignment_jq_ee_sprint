@@ -2,16 +2,32 @@
   border: 2px solid red;
 }
 .display-box {
-  margin-top: 10px;
+  height: 20px;
+  width: 100%;
 }
 .outline {
-  border: 1px solid black;
-  height: 20px;
+  border: 1px solid grey;
+}
+.container {
+  margin-top: 10px;
+}
+#dropdown {
+  border-top: none;
 }
 ul {
    list-style: none;
    padding: 0;
+   margin-bottom: 0;
 }
 li {
   width: 100%;
+}
+
+li:hover {
+  background: #bbb;
+  cursor: pointer;
+}
+
+.display-box:hover {
+  cursor: pointer;
 }
