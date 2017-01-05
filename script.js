@@ -7,6 +7,65 @@ var validations = {
   pwMin: 6
 }
 
+var formGroup = {
+  updateBadge: function( jQObj, text ) {
+    jQObj.parent().find('.badge').html(text);
+  },
+
+  updateMessage: function( jQObj, text ) {
+    jQObj.parent().find('.message').html(text);
+  }
+}
+
+var checkPWValidations = function($pwc, $pw) {
+  if ($pwc[0].value !== $pw[0].value) {
+    var message = "Passwords must match";
+
+    $pwc.addClass("error");
+    formGroup.updateMessage($pwc, message);
+    $pw.addClass("error");
+    formGroup.updateMessage($pw, message);
+
+    return false;
+  } else {
+    return true;
+  }
+}
+
+var checkTextField = function ( $textField ) {
+  var message,
+      tooShort = $textField[0].value < validations.textFieldMin,
+      tooLong = $textField[0].value > validations.textFieldMax;
+
+  if (tooShort || tooLong) {
+    message = tooShort ? "Text is too short." : "Text is too long.";
+
+    $textField.addClass("error");
+    formGroup.updateMessage($textField, message);
+
+    return false;
+  } else {
+    return true;
+  }
+}
+
+var checkTextArea = function ( $textArea ) {
+  var message,
+      tooShort = $textArea[0].value < validations.textAreaMin,
+      tooLong = $textArea[0].value > validations.textAreaMax;
+
+  if (tooShort || tooLong) {
+    message = tooShort ? "Text is too short." : "Text is too long.";
+
+    $textArea.addClass("error");
+    formGroup.updateMessage($textArea, message);
+
+    return false;
+  } else {
+    return true;
+  }
+}
+
 var eventHandlers = {
   addTextFieldValidations: function(){
     var $tf = $('#text-field');
@@ -18,9 +77,9 @@ var eventHandlers = {
       var left = validations.textFieldMax - e.target.value.length;
 
       if (left === validations.textFieldMax) {
-        $tf.next().html("");
+        formGroup.updateBadge($tf, "");
       } else {
-        $tf.next().html(String(left) + " characters left");
+        formGroup.updateBadge($tf, String(left) + " characters left");
       };
     });
   },
@@ -35,9 +94,9 @@ var eventHandlers = {
       var left = validations.textAreaMax - e.target.value.length;
 
       if (left === validations.textAreaMax) {
-        $ta.next().html("");
+        formGroup.updateBadge($ta, "");
       } else {
-        $ta.next().html( String(left) + " characters left");
+        formGroup.updateBadge($ta, String(left) + " characters left");
       }
     });
   },
@@ -52,9 +111,9 @@ var eventHandlers = {
       var left = validations.pwMax - e.target.value.length;
 
       if (left === validations.pwMax) {
-        $pw.next().html("");
+        formGroup.updateBadge($pw, "");
       } else {
-        $pw.next().html( String(left) + " characters left");
+        formGroup.updateBadge($pw, String(left) + " characters left");
       }
     });
   },
@@ -65,30 +124,29 @@ var eventHandlers = {
 
     $pwc.on('keyup', function (e) {
       if (e.target.value.length === 0) {
-        $pwc.next().html("");
+        formGroup.updateBadge($pwc, "");
       } else if (e.target.value !== pw.value) {
-        $pwc.next().html("Passwords do not match.");
+        formGroup.updateBadge($pwc, "Passwords do not match.");
       } else {
-        $pwc.next().html("");
+        formGroup.updateBadge($pwc, "");
         return true;
       }
     });
   },
 
   checkValidations: function() {
-    var pwc = $('#password-conf')[0],
-        pw = $('#password')[0],
-        textField = $('text-field')[0],
-        textArea = $('textarea')[0],
+    var $pwc = $('#password-conf'),
+        $pw = $('#password'),
+        $textField = $('#text-field'),
+        $textArea = $('textarea'),
         $submit = $('input[type="submit"]');
 
     $submit.on('click', function (e) {
-      if (pwc.value !== pw.value) {
-        var message = $("<p>").text("Passwords must match")
-        $(pwc).addClass("error");
-        $(pwc).next().after(message);
-        $(pw).addClass("error");
-        $(pw).next().after(message);
+      var tf = checkTextField( $textField ),
+          ta = checkTextArea( $textArea ),
+          pw = checkPWValidations( $pwc, $pw );
+
+      if (!pw || !tf || !ta) {
         e.preventDefault()
       }
     });
