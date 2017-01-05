@@ -1,3 +1,17 @@
 .error {
   border: 2px solid red;
 }
+.display-box {
+  margin-top: 10px;
+}
+.outline {
+  border: 1px solid black;
+  height: 20px;
+}
+ul {
+   list-style: none;
+   padding: 0;
+}
+li {
+  width: 100%;
+}
