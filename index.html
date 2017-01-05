@@ -1,8 +1,8 @@
 
 <html>
   <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
   </head>
   <body>
@@ -10,16 +10,27 @@
       <div class="row">
         <div class="col-xs-10 col-xs-offset-1">
           <form action="" class="">
-            <input id="text-field" type="text" value="" class="form-control">
+            <div class="form-group">
+              <input id="text-field" type="text" value="" class="form-control">
+              <span class="message"></span>
               <span class="badge pull-right"></span>
-            <textarea value="" class="form-control">
-            </textarea>
-            <span class="badge pull-right"></span>
-            <input id="password" type="password" value="" class="form-control">
+            </div>
+            <div class="form-group">
+              <textarea value="" class="form-control"></textarea>
+              <span class="message"></span>
               <span class="badge pull-right"></span>
-            <input id="password-conf" type="password" value="" class="form-control">
+            </div>
+            <div class="form-group">
+              <input id="password" type="password" value="" class="form-control">
+              <span class="message"></span>
               <span class="badge pull-right"></span>
-            <input type="submit" class="btn btn-default"></input>
+            </div>
+            <div class="form-group">
+              <input id="password-conf" type="password" value="" class="form-control">              <span class="message"></span>
+              <span class="badge pull-right"></span>
+            </div>
+            <br>
+            <input type="submit" class="btn btn-default">
           </form>
         </div>
       </div>

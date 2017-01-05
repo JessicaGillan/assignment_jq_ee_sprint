@@ -21,7 +21,7 @@ var eventHandlers = {
         $tf.next().html("");
       } else {
         $tf.next().html(String(left) + " characters left");
-      }
+      };
     });
   },
 
@@ -61,17 +61,35 @@ var eventHandlers = {
 
   addPWConfValidations: function() {
     var $pwc = $('#password-conf'),
-        $pw = $('#password');
+        pw = $('#password')[0];
 
     $pwc.on('keyup', function (e) {
-      console.log(e.target.value);
-      console.log($pw.value);
       if (e.target.value.length === 0) {
         $pwc.next().html("");
-      } else if (e.target.value !== $pw.value) {
+      } else if (e.target.value !== pw.value) {
         $pwc.next().html("Passwords do not match.");
       } else {
         $pwc.next().html("");
+        return true;
+      }
+    });
+  },
+
+  checkValidations: function() {
+    var pwc = $('#password-conf')[0],
+        pw = $('#password')[0],
+        textField = $('text-field')[0],
+        textArea = $('textarea')[0],
+        $submit = $('input[type="submit"]');
+
+    $submit.on('click', function (e) {
+      if (pwc.value !== pw.value) {
+        var message = $("<p>").text("Passwords must match")
+        $(pwc).addClass("error");
+        $(pwc).next().after(message);
+        $(pw).addClass("error");
+        $(pw).next().after(message);
+        e.preventDefault()
       }
     });
   }
@@ -82,4 +100,5 @@ $().ready(function() {
   eventHandlers.addTextAreaValidations();
   eventHandlers.addPWValidations();
   eventHandlers.addPWConfValidations();
+  eventHandlers.checkValidations();
 });
