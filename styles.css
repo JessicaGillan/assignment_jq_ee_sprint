@@ -18,9 +18,11 @@ ul {
    list-style: none;
    padding: 0;
    margin-bottom: 0;
+   border: 4px solid red;
 }
 li {
   width: 100%;
+  background-color: white;
 }
 
 li:hover {
@@ -33,6 +35,7 @@ li:hover {
 .photo {
   background-image: url("png.jpg");
   height: 600px;
+  width: 1200px;
   background-size: cover;
   background-repeat: no-repeat;
 }
@@ -42,9 +45,20 @@ li:hover {
 .box {
   height: 60px;
   width: 60px;
-  position: absolute;
+  position: absolute;;
+  pointer-events: none;
+}
+.container-box {
+  position: absolute;;
   pointer-events: none;
 }
 .finder {
   border: 4px solid red;
+}
+.found {
+  border: 4px solid green;
+}
+.push-down {
+  margin-top: 60px;
+  pointer-events: all;
 }
